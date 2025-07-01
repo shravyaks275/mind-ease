@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health and Stress Relief Companion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+		@media (max-width: 600px) {
+    nav a {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .survey {
+        padding: 10px;
+    }
+}
+
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            left: 10px;
+        }
+
+        .logo {
+            
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .featured-content {
+            text-align: center;
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .recent-articles {
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .survey {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .survey h2 {
+            color: #4CAF50;
+        }
+
+        .survey label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .survey input[type="text"],
+        .survey textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .survey textarea {
+            resize: vertical;
+        }
+
+        .survey button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .survey button:hover {
+            background-color: #45a049;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #4CAF50;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="C:\Users\user\Downloads\logo for mental health website.png">
+            </div>
+            <span class="menu-icon" onclick="openNav()">&#9776;</span>
+            <h1>MINDEASE</h1>
+        </div>
+    </header>
+
+    <nav id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="login.html">Login</a>
+        <a href="leaderboard.html">Leaderboard</a>
+    </nav>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="meditations.html">Guided Meditations</a>
+        <a href="exercises.html">Stress-Relief Exercises</a>
+        <a href="mood-tracking.html">Mood Tracking</a>
+        <a href="resources.html">Feed</a>
+    </nav>
+
+    <section class="featured-content">
+        <h2>Welcome to Your Mental Wellness Companion</h2>
+        <p>This app is designed to help you manage stress, improve mental health, and foster a sense of well-being through personalized, accessible support.</p>
+    </section>
+
+    <section class="survey">
+        <h2>Mental Health Survey</h2>
+        <form id="surveyForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age">
+
+            <label for="mood">How do you feel today?</label>
+            <input type="text" id="mood" name="mood">
+
+            <label for="stress">Rate your stress level (1-10):</label>
+            <input type="text" id="stress" name="stress">
+
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+
+            <button type="button" onclick="submitSurvey()">Submit</button>
+        </form>
+    </section>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        function submitSurvey() {
+            const form = document.getElementById('surveyForm');
+            const formData = new FormData(form);
+            const entries = {};
+            formData.forEach((value, key) => {
+                entries[key] = value;
+            });
+            console.log(entries);
+
+            // Handle survey data (e.g., send to a server or display a message)
+            alert('Thank you for your feedback!');
+            form.reset(); // Reset the form after submission
+        }
+    </script>
+	
+	<p>&nbsp;  Reach us at<a href="mindease@gmail.com">@MindEase</a></p>
+	</body>
+</html>

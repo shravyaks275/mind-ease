@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .card.flipped {
+            background-color: #fff;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .card.flipped img {
+            display: block;
+        }
+
+        .message {
+            margin: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Memory Match Game</h1>
+    <div class="game-board" id="game-board"></div>
+    <div class="message" id="message"></div>
+    <button id="reset-btn">Reset Game</button>
+
+    <script>
+        const cardImages = [
+            '🐶', '🐱', '🐻', '🐼', 
+            '🐶', '🐱', '🐻', '🐼'
+        ];
+
+        let cards = [];
+        let firstCard, secondCard;
+        let lockBoard = false;
+        let matchCount = 0;
+
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+
+        function createBoard() {
+            shuffle(cardImages);
+            const gameBoard = document.getElementById('game-board');
+            gameBoard.innerHTML = '';
+            cardImages.forEach(image => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.image = image;
+
+                card.innerHTML = `<img src="" alt="${image}">${image}`;
+                card.addEventListener('click', flipCard);
+                gameBoard.appendChild(card);
+                cards.push(card);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flipped');
+
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            lockBoard = true;
+
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.image === secondCard.dataset.image;
+
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            matchCount++;
+            resetBoard();
+            if (matchCount === cardImages.length / 2) {
+                document.getElementById('message').textContent = 'You found all matches!';
+            }
+        }
+
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard] = [null, null];
+            lockBoard = false;
+        }
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            matchCount = 0;
+            document.getElementById('message').textContent = '';
+            cards = [];
+            createBoard();
+        });
+
+        createBoard();
+    </script>
+</body>
+</html>

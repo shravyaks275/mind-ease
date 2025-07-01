@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .mood-tracking {
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .emoji {
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .emoji.selected {
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .mood-entry {
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .bot-container, .therapist-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .bot-messages, .therapist-messages {
+            background-color: #eee;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .bot-messages p, .therapist-messages p {
+            margin: 5px 0;
+        }
+
+        .therapist-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+		.menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            left: 10px;
+        }
+
+        .logo {
+            
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+		.nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+       <div class="nav-container">
+            <div class="logo">
+                <img src="C:\Users\user\Downloads\logo for mental health website.png">
+            </div>
+            <span class="menu-icon" onclick="openNav()">&#9776;</span>
+            <h1>MINDEASE</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="meditations.html">Guided Meditations</a>
+        <a href="exercises.html">Stress-Relief Exercises</a>
+        <a href="mood-tracking.html">Mood Tracking</a>
+        <a href="resources.html">Feed</a>
+    </nav>
+
+    <section class="mood-tracking">
+        <h2>Track Your Mood</h2>
+        <div class="emoji-container" id="emoji-container">
+            <div class="emoji" data-mood="😊">😊</div>
+            <div class="emoji" data-mood="😢">😢</div>
+            <div class="emoji" data-mood="😠">😠</div>
+            <div class="emoji" data-mood="😃">😃</div>
+            <div class="emoji" data-mood="😰">😰</div>
+        </div>
+        <div id="mood-entries">
+            <h2>Previous Entries</h2>
+            <!-- Mood entries will be dynamically added here -->
+        </div>
+    </section>
+
+    <section class="bot-container">
+        <h2>AI Listener Bot</h2>
+        <button class="btn" onclick="startListening()">Talk to the Bot</button>
+        <div class="bot-messages" id="bot-messages">
+            <!-- Bot messages will appear here -->
+        </div>
+    </section>
+
+    <section class="therapist-container">
+        <h2>AI Therapist</h2>
+        <div class="therapist-messages" id="therapist-messages">
+            <!-- Therapist messages will appear here -->
+        </div>
+        <input type="text" id="user-input" class="therapist-input" placeholder="Type your message here...">
+        <button class="btn" onclick="sendMessage()">Send</button>
+    </section>
+
+    <footer>
+        &copy; 2024 Mental Health and Stress Relief Companion
+    </footer>
+
+    <script>
+        const emojis = document.querySelectorAll('.emoji');
+        const moodEntries = document.getElementById('mood-entries');
+
+        emojis.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                emojis.forEach(e => e.classList.remove('selected'));
+                emoji.classList.add('selected');
+                const selectedMood = emoji.getAttribute('data-mood');
+                submitMood(selectedMood);
+            });
+        });
+
+        function submitMood(selectedMood) {
+            if (selectedMood) {
+                const entry = document.createElement('div');
+                entry.className = 'mood-entry';
+                entry.textContent = selectedMood;
+
+                moodEntries.appendChild(entry);
+                emojis.forEach(e => e.classList.remove('selected'));
+            }
+        }
+
+        // AI Listener Bot Code
+        function startListening() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            const botMessages = document.getElementById('bot-messages');
+
+            recognition.onstart = function() {
+                botMessages.innerHTML += '<p><strong>Bot:</strong> Listening...</p>';
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                botMessages.innerHTML += `<p><strong>You:</strong> ${transcript}</p>`;
+                botMessages.innerHTML += `<p><strong>Bot:</strong> I hear you. It's important to talk about how you're feeling.</p>`;
+                botMessages.scrollTop = botMessages.scrollHeight; // Auto scroll to bottom
+            };
+
+            recognition.onspeechend = function() {
+                recognition.stop();
+            };
+
+            recognition.onerror = function(event) {
+                botMessages.innerHTML += `<p><strong>Bot:</strong> Error occurred: ${event.error}</p>`;
+            };
+
+            recognition.start();
+        }
+
+        // AI Therapist Code
+        const therapistMessages = document.getElementById('therapist-messages');
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== "") {
+                addMessage('You', userInput);
+                getTherapistResponse(userInput);
+                document.getElementById('user-input').value = "";
+            }
+        }
+
+        function addMessage(sender, message) {
+            const messageElement = document.createElement('p');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            therapistMessages.appendChild(messageElement);
+            therapistMessages.scrollTop = therapistMessages.scrollHeight; // Auto scroll to bottom
+        }
+
+        function getTherapistResponse(userInput) {
+            // Simulate a therapist response. Replace this with a call to a real AI therapist API.
+            setTimeout(() => {
+                const responses = [
+                    "I'm here for you. Let's talk more about what's on your mind.",
+                    "It's important to express your feelings. I'm listening.",
+                    "How do you feel about what just happened?",
+                    "Let's take a deep breath together. How do you feel now?",
+                    "I'm glad you're sharing this with me. What else is on your mind?"
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage('Therapist', randomResponse);
+            }, 1000); // Simulate a delay for the response
+        }
+    </script>
+
+</body>
+</html>

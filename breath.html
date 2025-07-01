@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Exercise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #00796b;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #breath-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #4db6ac;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            transition: transform 4s ease-in-out;
+        }
+
+        #start-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #start-btn:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Breathing Exercise</h1>
+    <div id="breath-container">Breathe In</div>
+    <button id="start-btn">Start</button>
+
+    <script>
+        const breathContainer = document.getElementById('breath-container');
+        const startBtn = document.getElementById('start-btn');
+
+        let isBreathing = false;
+
+        function startBreathingExercise() {
+            if (isBreathing) return;
+            isBreathing = true;
+            breathe();
+        }
+
+        function breathe() {
+            breathContainer.textContent = 'Breathe In';
+            breathContainer.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                breathContainer.textContent = 'Hold';
+                setTimeout(() => {
+                    breathContainer.textContent = 'Breathe Out';
+                    breathContainer.style.transform = 'scale(1)';
+                }, 4000); // Hold for 4 seconds
+            }, 4000); // Breathe in for 4 seconds
+
+            setTimeout(() => {
+                if (isBreathing) {
+                    breathe(); // Repeat the cycle
+                }
+            }, 8000); // Total cycle time: 8 seconds
+        }
+
+        startBtn.addEventListener('click', startBreathingExercise);
+    </script>
+</body>
+</html>
