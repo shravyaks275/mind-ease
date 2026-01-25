@@ -73,3 +73,9 @@ mindease/
 This project is licensed under the [MIT License](LICENSE).
 
 
+
+##  Output
+
+ ### Home Page
+ ![Alt text](C:/Users/aravi/OneDrive/Documents/Downloads/WhatsApp Image 2026-01-25 at 10.28.17 PM.png)
+ 
