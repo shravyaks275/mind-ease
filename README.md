@@ -84,7 +84,7 @@ This project is licensed under the [MIT License](LICENSE).
 ![WhatsApp Image 2026-01-25 at 10 41 31 PM](https://github.com/user-attachments/assets/b0a2bcef-f550-42e2-8c81-e86dac53c166)
  ### Breathing Exercise
  ![WhatsApp Image 2026-01-25 at 10 42 04 PM](https://github.com/user-attachments/assets/bf90f4ee-05b4-4e85-996d-37e6dbdc1446)
- ### Color Baseame
+ ### Color Based Game
  ![WhatsApp Image 2026-01-25 at 10 42 20 PM](https://github.com/user-attachments/assets/bc18d4f6-7936-4dbe-900a-29c2299efe5b)
  ### Memory Based Game
  ![WhatsApp Image 2026-01-25 at 10 42 55 PM](https://github.com/user-attachments/assets/a5d8e0c5-436a-4761-a461-d81760e4510f)
