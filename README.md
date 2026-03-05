@@ -5,6 +5,8 @@ MindEase is a responsive web-based mental wellness companion designed to help us
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
+ [Link Text](https://mind-ease-khaki.vercel.app/)
+
 
 ## Problem Statement
 
